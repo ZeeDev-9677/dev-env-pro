@@ -5,10 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fileupload.download.demo.services.UploadDownloadService;
-
 @RestController
 public class UploadDownloadController {
 	@Autowired
@@ -22,6 +22,10 @@ public class UploadDownloadController {
 	@RequestMapping(value = "/files/Testt", method = RequestMethod.GET)
 	public ResponseEntity<?> getAll() {
 		return new ResponseEntity<>(uploadDownloadService.getAllFiles(), HttpStatus.OK);
+	}
+	@RequestMapping(value="/upload", method=RequestMethod.POST)
+	public ResponseEntity<?> uploadAll(@RequestParam String str){
+		return this.uploadDownloadService.saveFile();
 	}
 
 }
