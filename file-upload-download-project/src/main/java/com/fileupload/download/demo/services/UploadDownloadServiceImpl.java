@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,4 +55,19 @@ public class UploadDownloadServiceImpl implements UploadDownloadService {
 
 	}
 
+	@Override
+	public Resource downloadFile(String fileName) {
+
+		File dir = new File(basePath + File.separator + fileName);
+		try {
+			if (dir.exists()) {
+				Resource resource = new UrlResource(dir.toURI());
+				return resource;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
+
+	}
 }
